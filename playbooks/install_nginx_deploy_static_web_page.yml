@@ -1,0 +1,20 @@
+-
+  name: Install Nginx, start it and deploy a static web page
+  hosts: servers    #server is our group name
+  become: yes      #giving administrator access
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Start the Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes        #if system restarted the nginx will be enabled again
+
+    - name: Deploy a web page
+      copy:
+        src: index.html
+        dest: /var/www/html
